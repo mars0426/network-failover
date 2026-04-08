@@ -1,6 +1,6 @@
 import logging
 from jnpr.junos import Device
-from jnpr.junos.exception import ConnectError, ProbeError, AuthError
+from jnpr.junos.exception import ConnectError, ProbeError, ConnectAuthError
 
 class JuniperClient:
     def __init__(self, host, user, pwd):
@@ -36,7 +36,7 @@ class JuniperClient:
                 logging.warning(f"[Juniper] 找不到介面 {port_name} 的狀態資訊")
                 return None
 
-        except AuthError:
+        except ConnectAuthError:
             logging.error(f"[Juniper] 認證失敗: 請檢查帳號密碼。")
             return None
         except ConnectError as e:
